@@ -19,23 +19,35 @@ Alternatively, you can run:
 
 Then use a code sample below.
 
-#Code Samples
+#Code Samples 
 
 ##Digital Goods API
 
 ####Initializing Paymentwall
-<pre><code>require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Using Paymentwall PHP Library v2:
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Config::getInstance()->set(array(
+    'api_type' => Paymentwall_Config::API_GOODS,
+    'public_key' => 'YOUR_PUBLIC_KEY',
+    'private_key' => 'YOUR_PRIVATE_KEY'
+));
+```
+Using Paymentwall PHP Library v1 (deprecated in v2):
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
 Paymentwall_Base::setApiType(Paymentwall_Base::API_GOODS);
 Paymentwall_Base::setAppKey('YOUR_APPLICATION_KEY'); // available in your Paymentwall merchant area
 Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
-</code></pre>
+```
 
 ####Widget Call
 [Web API details](http://www.paymentwall.com/en/documentation/Digital-Goods-API/710#paymentwall_widget_call_flexible_widget_call)
 
 The widget is a payment page hosted by Paymentwall that embeds the entire payment flow: selecting the payment method, completing the billing details, and providing customer support via the Help section. You can redirect the users to this page or embed it via iframe. Below is an example that renders an iframe with Paymentwall Widget.
 
-<pre><code>$widget = new Paymentwall_Widget(
+```php
+$widget = new Paymentwall_Widget(
 	'user40012',   // id of the end-user who's making the payment
 	'p1_1',        // widget code, e.g. p1; can be picked inside of your merchant account
 	array(         // product details for Flexible Widget Call. To let users select the product on Paymentwall's end, leave this array empty
@@ -53,12 +65,17 @@ The widget is a payment page hosted by Paymentwall that embeds the entire paymen
 	array('email' => 'user@hostname.com')           // additional parameters
 );
 echo $widget->getHtmlCode();
-</code></pre>
+```
 
 ####Pingback Processing
 
 The Pingback is a webhook notifying about a payment being made. Pingbacks are sent via HTTP/HTTPS to your servers. To process pingbacks use the following code:
-<pre><code>$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Base::setApiType(Paymentwall_Base::API_GOODS);
+Paymentwall_Base::setAppKey('YOUR_APPLICATION_KEY'); // available in your Paymentwall merchant area
+Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
+$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
 if ($pingback->validate()) {
   $productId = $pingback->getProduct()->getId();
   if ($pingback->isDeliverable()) {
@@ -69,30 +86,48 @@ if ($pingback->validate()) {
   echo 'OK'; // Paymentwall expects response to be OK, otherwise the pingback will be resent
 } else {
   echo $pingback->getErrorSummary();
-}</code></pre>
+}
+```
 
 ##Virtual Currency API
 
 ####Initializing Paymentwall
-<pre><code>require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Using Paymentwall PHP Library v2:
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Config::getInstance()->set(array(
+    'api_type' => Paymentwall_Config::API_VC,
+    'public_key' => 'YOUR_PUBLIC_KEY',
+    'private_key' => 'YOUR_PRIVATE_KEY'
+));
+```
+Using Paymentwall PHP Library v1 (deprecated in v2):
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
 Paymentwall_Base::setApiType(Paymentwall_Base::API_VC);
 Paymentwall_Base::setAppKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
 Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
-</code></pre>
+```
 
 ####Widget Call
-<pre><code>$widget = new Paymentwall_Widget(
+```php
+$widget = new Paymentwall_Widget(
 	'user40012', // id of the end-user who's making the payment
 	'p1_1',      // widget code, e.g. p1; can be picked inside of your merchant account
 	array(),     // array of products - leave blank for Virtual Currency API
 	array('email' => 'user@hostname.com') // additional parameters
 );
 echo $widget->getHtmlCode();
-</code></pre>
+```
 
 ####Pingback Processing
 
-<pre><code>$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Base::setApiType(Paymentwall_Base::API_VC);
+Paymentwall_Base::setAppKey('YOUR_APPLICATION_KEY'); // available in your Paymentwall merchant area
+Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
+$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
 if ($pingback->validate()) {
   $virtualCurrency = $pingback->getVirtualCurrencyAmount();
   if ($pingback->isDeliverable()) {
@@ -103,19 +138,32 @@ if ($pingback->validate()) {
   echo 'OK'; // Paymentwall expects response to be OK, otherwise the pingback will be resent
 } else {
   echo $pingback->getErrorSummary();
-}</code></pre>
+}
+```
 
 ##Cart API
 
 ####Initializing Paymentwall
-<pre><code>require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Using Paymentwall PHP Library v2:
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Config::getInstance()->set(array(
+    'api_type' => Paymentwall_Config::API_CART,
+    'public_key' => 'YOUR_PUBLIC_KEY',
+    'private_key' => 'YOUR_PRIVATE_KEY'
+));
+```
+Using Paymentwall PHP Library v1 (deprecated in v2):
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
 Paymentwall_Base::setApiType(Paymentwall_Base::API_CART);
 Paymentwall_Base::setAppKey('YOUR_APPLICATION_KEY'); // available in your Paymentwall merchant area
 Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
-</code></pre>
+```
 
 ####Widget Call
-<pre><code>$widget = new Paymentwall_Widget(
+```php
+$widget = new Paymentwall_Widget(
 	'user40012', // id of the end-user who's making the payment
 	'p1_1',      // widget code, e.g. p1; can be picked inside of your merchant account,
 	array(
@@ -124,11 +172,17 @@ Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentw
 	),
 	array('email' => 'user@hostname.com') // additional params
 );
-echo $widget->getHtmlCode();</code></pre>
+echo $widget->getHtmlCode();
+```
 
 ####Pingback Processing
 
-<pre><code>$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
+```php
+require_once('/path/to/paymentwall-php/lib/paymentwall.php');
+Paymentwall_Base::setApiType(Paymentwall_Base::API_CART);
+Paymentwall_Base::setAppKey('YOUR_APPLICATION_KEY'); // available in your Paymentwall merchant area
+Paymentwall_Base::setSecretKey('YOUR_SECRET_KEY'); // available in your Paymentwall merchant area
+$pingback = new Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
 if ($pingback->validate()) {
   $products = $pingback->getProducts();
   if ($pingback->isDeliverable()) {
@@ -139,4 +193,120 @@ if ($pingback->validate()) {
   echo 'OK'; // Paymentwall expects response to be OK, otherwise the pingback will be resent
 } else {
   echo $pingback->getErrorSummary();
-}</code></pre>
+}
+```
+
+##Brick
+
+####Initializing Paymentwall
+```php
+Paymentwall_Config::getInstance()->set(array(
+	'public_key' => 'YOUR_PUBLIC_KEY',
+	'private_key' => 'YOUR_PRIVATE_KEY'
+));
+```
+
+####Create a one-time token
+```php
+$tokenModel = new Paymentwall_OneTimeToken();
+$token =  $tokenModel->create(array(
+	'public_key' => Paymentwall_Config::getInstance()->getPublicKey(),
+	'card[number]' => '4242424242424242',
+	'card[exp_month]' => '11',
+	'card[exp_year]' => '19',
+	'card[cvv]' => '123'
+));
+// send token to charge via $token->getToken();
+```
+
+####Charge
+```php
+$charge = new Paymentwall_Charge();
+$charge->create(array(
+	// if generated via backend
+	//'token' => $token->getToken(),
+	// if generated via brick.js
+	'token' => $_POST['brick_token'],
+	'email' => $_POST['email'],
+	'currency' => 'USD',
+	'amount' => 10,
+	'fingerprint' => $_POST['brick_fingerprint'],
+	'description' => 'Order #123'
+));
+
+$response = $charge->getPublicData();
+
+if ($charge->isSuccessful()) {
+	if ($charge->isCaptured()) {
+		// deliver s product
+	} elseif ($charge->isUnderReview()) {
+		// decide on risk charge
+	}
+} else {
+	$errors = json_decode($response, true);
+	echo $errors['error']['code'];
+	echo $errors['error']['message'];
+}
+
+echo $response; // need for JS communication
+```
+
+####Charge - refund
+
+```php
+$charge = new Paymentwall_Charge('CHARGE_ID');
+$charge->refund();
+
+echo $charge->isRefunded();
+```
+
+####Subscription
+
+```php
+$subscription = new Paymentwall_Subscription();
+$subscription->create(array(
+	// if generated via backend
+	//'token' => $token->getToken(),
+	// if generated via brick.js
+	'token' => $_POST['brick_token'],
+	'email' => $_POST['email'],
+	'currency' => 'USD',
+	'amount' => 10,
+	'fingerprint' => $_POST['brick_fingerprint'],
+	'plan' => 'product_123',
+	'description' => 'Order #123',
+	'period' => 'week',
+	'period_duration' => 2
+));
+
+echo $subscription->getId();
+```
+
+####Subscription - cancel
+
+```php
+$subscription = new Paymentwall_Subscription('SUBSCRIPTION_ID');
+$subscription->cancel();
+
+echo $subscription->isActive();
+```
+
+###Signature calculation - Widget
+
+```php
+$widgetSignatureModel = new Paymentwall_Signature_Widget();
+echo $widgetSignatureModel->calculate(
+	array(), // widget params
+	2 // signature version
+);
+```
+
+###Singature calculation - Pingback
+
+```php
+$pingbackSignatureModel = new Paymentwall_Signature_Pingback();
+echo $pingbackSignatureModel->calculate(
+	array(), // pingback params
+	1 // signature version
+);
+```

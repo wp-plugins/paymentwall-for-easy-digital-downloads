@@ -1,9 +1,9 @@
  === Paymentwall for EDD ===
 Contributors: Paymentwall
-Tags: payment, paymentgateway, edd, ecommerce, digital download, Easy Digital Downloads
+Tags: payment, paymentgateway, edd, ecommerce, digital download, Easy Digital Downloads, paymentgateways, brick, creditcard
 Requires at least: 3.9.2 & EDD 2.1 or later
-Tested up to: 4.2.2 & EDD 2.4.2
-Stable tag: 1.0.0
+Tested up to: 4.3.1 & EDD 2.4.7
+Stable tag: 1.1.0
 License: The MIT License (MIT)
 
 Official Paymentwall module for WordPress EDD.
@@ -19,9 +19,9 @@ Paymentwall is the leading all-in-one global payments platform for digital goods
 
 == Installation ==
 
-1. Upload `paymentwall-edd` directory to the plugins directory.
-2. Go to the plugins setting page and activate "Easy Digital Downloads - Paymentwall Checkout"
-3. On the left sidebar of your WordPress dashboard, navigate to "Easy Digital Downloads --> Settings". Click on the **Payment Gateways** tab.
+1. Upload `paymentwall-for-easy-digital-downloads` directory to the plugins directory.
+2. Go to the plugins setting page and activate "Paymentwall for EDD"
+3. On the left sidebar of your WordPress dashboard, navigate to "EDD --> Settings". Click on the **Payment Gateways** tab.
 4. Find Paymentwall section
 5. Enter your project and secret keys, widget code, and fill up the other options.
     * The **Project key** and Secret key are located in your "Paymentwall Merchant Area --> My Projects".
@@ -35,6 +35,10 @@ View our full installation guide: <https://www.paymentwall.com/us/documentation/
 1. Screenshot 1 - Paymentwall Settings Page
 
 == Changelog ==
+= v1.1.0 [08/10/2015] =
+* Support Wordpress 4.3.1
+* Update latest lib
+* Add Brick support
 
 = v1.0.0 [04/08/2015] =
 * Support Wordpress 4.2.2
